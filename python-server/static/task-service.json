@@ -93,6 +93,44 @@
           }
         }
       }
+    },
+    "/mockup/updateTask": {
+      "put": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Update properties of a task.",
+        "description": "Update the properties of a task.",
+        "requestBody": {
+          "description": "The task object to be updated.",
+          "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Exception encountered"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      }
     }
   },
   "components": {

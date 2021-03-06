@@ -29,13 +29,18 @@ export class TasksComponent implements OnInit {
     console.log("Deleting task: " + JSON.stringify(task));
     this.taskService.deleteTaskById(task.id)
     .subscribe(() => {
-      this.getTasks()
+      this.getTasks();
     })
   }
 
   toggleReminder(task: Task) {
-    console.log("Toggle reminder of task " + task.id)
-    task.reminder = !task.reminder
+    console.log("Toggle reminder of task " + task.id);
+    task.reminder = !task.reminder;
+    this.taskService.updateTask(task)
+    .subscribe((newTask: Task) => {
+      console.log("Returned task: " + JSON.stringify(newTask))
+      this.getTasks();
+    })
   }
 
 }
