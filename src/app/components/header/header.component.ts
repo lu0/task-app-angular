@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UiService } from '../../services/ui.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  title: string = 'Task Tracker';
+  public title: string = 'Task Tracker';
+  public isAddFormShown: boolean = false;
+  private subscription: Subscription;
 
   // The constructur runs when the component is initialized
-  constructor() { }
+  constructor(
+    private uiService: UiService
+  ) {
+    this.subscription = this.uiService.onToggleAddTask()
+    .subscribe((isAddFormShown: boolean) => {
+      this.isAddFormShown = isAddFormShown;
+    })
+  }
 
   // Lifecycle method used most of the time
   // run when the component loads
@@ -18,6 +29,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleAddTask() {
-    console.log('toggle')
+    this.uiService.toggleAddTask();
   }
 }

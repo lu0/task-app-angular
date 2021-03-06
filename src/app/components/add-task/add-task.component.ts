@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Task } from 'Task'
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-add-task',
@@ -11,8 +13,17 @@ export class AddTaskComponent implements OnInit {
   @Output() onAddTask: EventEmitter<Task> = new EventEmitter();
 
   public task: Task;
+  public showForm: boolean = false;
+  private subscription = new Subscription();
 
-  constructor() { }
+  constructor(
+    private uiService: UiService
+  ) {
+    this.subscription = this.uiService.onToggleAddTask()
+    .subscribe((isAddFormShown) => {
+      this.showForm = isAddFormShown;
+    })
+  }
 
   ngOnInit(): void {
       this.task = {} as Task;

@@ -1,4 +1,4 @@
-<form (ngSubmit)="validateThenSubmit()">
+<form *ngIf="showForm" (ngSubmit)="validateThenSubmit()">
   <div class="form-control">
     <!-- Need to import FormModule into the add module to use ngModel / two way binding (input [] / output () :0) -->
     <label>Title</label>
