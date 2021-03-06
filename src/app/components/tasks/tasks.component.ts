@@ -18,28 +18,36 @@ export class TasksComponent implements OnInit {
     this.getTasks()
   }
 
+  /**
+  * Get all existing tasks in the backend
+  */
   getTasks() {
-    this.taskService.getTaskByAll()
-    .subscribe((response: Task[]) => {
+    this.taskService.getTaskByAll().subscribe((response: Task[]) => {
       this.tasks = response;
     })
   }
 
+  /**
+  * Delete a task and refresh the view
+  */
   deleteTask(task: Task) {
     console.log("Deleting task: " + JSON.stringify(task));
-    this.taskService.deleteTaskById(task.id)
-    .subscribe(() => {
-      this.getTasks();
+    this.taskService.deleteTaskById(task.id).subscribe(() => {
+      this.ngOnInit();
     })
   }
 
+  /**
+  * Toggle the reminder of the task and refresh the view
+  */
   toggleReminder(task: Task) {
     console.log("Toggle reminder of task " + task.id);
     task.reminder = !task.reminder;
-    this.taskService.updateTask(task)
-    .subscribe((newTask: Task) => {
+    this.taskService.updateTask(task).subscribe((newTask: Task) => {
       console.log("Returned task: " + JSON.stringify(newTask))
-      this.getTasks();
+      this.ngOnInit();
+    })
+  }
     })
   }
 

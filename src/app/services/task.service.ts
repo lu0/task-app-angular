@@ -29,7 +29,7 @@ export class TaskService {
     return this.http.delete<null>(this.apiUrl + "/mockup/deleteTaskById/" + taskId);
   }
 
-  updateTask(task: Task): Observable<Task>{
+  updateTask(task: Task): Observable<Task> {
     return this.http.put<Task>(this.apiUrl + "/mockup/updateTask", task, httpOptions)
   }
 }
