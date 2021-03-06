@@ -2,16 +2,20 @@
   <div class="form-control">
     <!-- Need to import FormModule into the add module to use ngModel / two way binding (input [] / output () :0) -->
     <label>Title</label>
-    <input type="text" name="text" [(ngModel)]="task.text" id="text">
+    <input type="text" name="text" [(ngModel)]="task.text" id="text" placeholder="Insert text">
+  </div>
 
+  <div class="form-control">
     <label>Date</label>
-    <input type="text" name="day" [(ngModel)]="task.day" id="day">
+    <input type="text" name="day" [(ngModel)]="task.day" id="day" placeholder="Insert text">
+  </div>
 
-    <div class="form-control-check">
+  <div class="form-control form-control-check">
       <label>Reminder</label>
       <input type="checkbox" name="reminder" [(ngModel)]="task.reminder" id="reminder">
-    </div>
+  </div>
 
+  <div class="form-control">
     <button class="btn btn-block">Create task</button>
   </div>
 </form>
