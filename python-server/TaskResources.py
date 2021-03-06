@@ -43,7 +43,7 @@ class DeleteTaskById(Resource):
                 raise ValueError(f"Task with id {taskId} does not exist.")
 
             with open(MOCKUP_DATA_FILE, "w") as file:
-                data = json.dump(data, file)
+                data = json.dump(data, file, indent=4)
             
             return "deleted"
         except ValueError as err:
@@ -57,11 +57,12 @@ class UpdateTask(Resource):
     Update properties of a task
     """
     def put(self):
-        req_body_bytes = request.data
-        req_body_string = req_body_bytes.decode()
-        new_task: dict = json.loads(req_body_string)
-        print(f"Task to be updated: {new_task}")
         try:
+            req_body_bytes = request.data
+            req_body_string = req_body_bytes.decode()
+            new_task: dict = json.loads(req_body_string)
+            print(f"Task to be updated: {new_task}")
+
             with open(MOCKUP_DATA_FILE, "r") as file:
                 data: dict = json.load(file)
             
@@ -81,7 +82,7 @@ class UpdateTask(Resource):
                 raise ValueError(f"Task with id {new_task['id']} does not exist.")
 
             with open(MOCKUP_DATA_FILE, "w") as file:
-                data = json.dump(data, file)
+                data = json.dump(data, file, indent=4)
 
             tasks_list = GetTaskByAll().get()[0]
             return tasks_list[index], 200
@@ -89,4 +90,32 @@ class UpdateTask(Resource):
             return f"{err}", 404
         except Exception as exc:
             return f"{exc}", 500
-            
+
+
+class AddTask(Resource):
+    def post(self):
+        try:
+            req_body_str = request.data.decode()
+            new_task: dict = json.loads(req_body_str)
+
+            with open(MOCKUP_DATA_FILE, "r") as file:
+                data: dict = json.load(file)
+
+            tasks: List = data["tasks"]
+            ids = []
+            for task in tasks:
+                ids.append(task["id"])
+            next_id = max(ids) + 1
+
+            new_task["id"] = next_id
+            tasks.append(new_task)
+            data["tasks"] = tasks
+
+            with open(MOCKUP_DATA_FILE, "w") as file:
+                data = json.dump(data, file, indent=4)
+
+            return new_task, 200
+        except ValueError as err:
+            return f"{err}", 404
+        except Exception as exc:
+            return f"{exc}", 500

@@ -131,6 +131,44 @@
           }
         }
       }
+    },
+    "/mockup/addTask": {
+      "post": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Add a new task.",
+        "description": "Insert a new task in the mockup json database.",
+        "requestBody": {
+          "description": "The task object to be inserted.",
+          "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Exception encountered"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      }
     }
   },
   "components": {

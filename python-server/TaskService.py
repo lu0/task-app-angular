@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from flask_swagger_ui import get_swaggerui_blueprint
-from TaskResources import GetTaskByAll, DeleteTaskById, UpdateTask
+from TaskResources import GetTaskByAll, DeleteTaskById, UpdateTask, AddTask
 
 class TaskService:
 
@@ -51,4 +51,5 @@ if __name__ == "__main__":
     service.add_resource(GetTaskByAll, "mockup/getTaskByAll")
     service.add_resource(DeleteTaskById, "mockup/deleteTaskById/<int:taskId>")
     service.add_resource(UpdateTask, "mockup/updateTask")
+    service.add_resource(AddTask, "mockup/addTask")
     service.run()
