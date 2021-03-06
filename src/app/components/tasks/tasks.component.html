@@ -1,2 +1,6 @@
 <!-- Pass the task of that specific iteration -->
-<app-tasks-item *ngFor="let task of tasks" [task]="task"></app-tasks-item>
+<app-tasks-item
+  *ngFor="let task of tasks"
+  [task]="task"
+  (onDeleteTask)="deleteTask(task)"
+></app-tasks-item>

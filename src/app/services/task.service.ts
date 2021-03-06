@@ -14,8 +14,12 @@ export class TaskService {
     private http: HttpClient
   ) { }
 
-  getTasks(): Observable<Task[]> {
+  getTaskByAll(): Observable<Task[]> {
     // The HttpClient returns and observable
     return this.http.get<Task[]>(this.apiUrl + "/mockup/getTaskByAll")
+  }
+
+  deleteTaskById(taskId: number): Observable<Task[]> {
+    return this.http.delete<null>(this.apiUrl + "/mockup/deleteTaskById/" + taskId);
   }
 }
