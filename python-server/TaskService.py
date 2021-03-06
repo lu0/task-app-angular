@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from flask_swagger_ui import get_swaggerui_blueprint
-from TaskResources import GetTaskByAll
+from TaskResources import DeleteTaskById, GetTaskByAll
 
 class TaskService:
 
@@ -14,8 +14,8 @@ class TaskService:
 
         print("Initialized!")
 
-    def add_resource(self, endpoint: str):
-        self._api.add_resource(GetTaskByAll, f"{self._base_url}/{endpoint}")
+    def add_resource(self, method, endpoint: str):
+        self._api.add_resource(method, f"{self._base_url}/{endpoint}")
 
     @staticmethod
     def _create_app(base_url: str, folder: str) -> Flask:
@@ -48,5 +48,6 @@ if __name__ == "__main__":
         static_folder="static",
         static_file_name="task-service.json"
     )
-    service.add_resource("mockup/getTaskByAll")
+    service.add_resource(GetTaskByAll, "mockup/getTaskByAll")
+    service.add_resource(DeleteTaskById, "mockup/deleteTaskById/<int:taskId>")
     service.run()
