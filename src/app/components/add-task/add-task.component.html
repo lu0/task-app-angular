@@ -1,0 +1,17 @@
+<form (ngSubmit)="validateThenSubmit()">
+  <div class="form-control">
+    <!-- Need to import FormModule into the add module to use ngModel / two way binding (input [] / output () :0) -->
+    <label>Title</label>
+    <input type="text" name="text" [(ngModel)]="task.text" id="text">
+
+    <label>Date</label>
+    <input type="text" name="day" [(ngModel)]="task.day" id="day">
+
+    <div class="form-control-check">
+      <label>Reminder</label>
+      <input type="checkbox" name="reminder" [(ngModel)]="task.reminder" id="reminder">
+    </div>
+
+    <button class="btn btn-block">Create task</button>
+  </div>
+</form>

@@ -32,4 +32,8 @@ export class TaskService {
   updateTask(task: Task): Observable<Task> {
     return this.http.put<Task>(this.apiUrl + "/mockup/updateTask", task, httpOptions)
   }
+
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.apiUrl + "/mockup/addTask", task, httpOptions)
+  }
 }

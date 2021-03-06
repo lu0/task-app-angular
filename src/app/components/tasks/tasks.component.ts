@@ -48,6 +48,14 @@ export class TasksComponent implements OnInit {
       this.ngOnInit();
     })
   }
+
+  /**
+  * Add a task and refresh the view
+  */
+  addTask(task: Task) {
+    console.log("Adding task");
+    this.taskService.addTask(task).subscribe((addedTask: Task) => {
+      this.ngOnInit();
     })
   }
 
