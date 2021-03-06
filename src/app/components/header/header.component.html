@@ -2,6 +2,7 @@
 <header>
   <h1>{{ title }}</h1>
   <app-button
+    *ngIf="inHomePage()"
     color="{{ isAddFormShown ? 'blue' : 'green' }}"
     text="{{ isAddFormShown ? 'Close' : 'Add' }}"
     (btnClick)="toggleAddTask()"></app-button>

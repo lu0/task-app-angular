@@ -31,4 +31,8 @@ export class HeaderComponent implements OnInit {
   toggleAddTask() {
     this.uiService.toggleAddTask();
   }
+
+  inHomePage(): boolean {
+    return this.uiService.hasRoute('/');
+  }
 }

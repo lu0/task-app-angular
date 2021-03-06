@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  public aboutUrl: string = '/about'
+
+  constructor(
+    private uiService: UiService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  inAboutPage(): boolean {
+    return this.uiService.hasRoute(this.aboutUrl);
   }
 
 }
