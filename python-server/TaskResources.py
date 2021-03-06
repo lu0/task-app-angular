@@ -5,6 +5,16 @@ from flask_restful import Resource
 
 MOCKUP_DATA_FILE = "./mockup-data.json"
 
+def load_json_file():
+    with open(MOCKUP_DATA_FILE, "r") as file:
+        data: dict = json.load(file)
+    return data
+
+def dump_to_json_file(data):
+    with open(MOCKUP_DATA_FILE, "w") as file:
+        data = json.dump(data, file, indent=4)
+    return data
+
 class GetTaskByAll(Resource):
     """
     Get all the mockup tasks.
@@ -12,8 +22,8 @@ class GetTaskByAll(Resource):
     def get(self):
         print("Getting tasks by all...")
         try:
-            with open(MOCKUP_DATA_FILE, "r") as file:
-                data = json.load(file)
+            data = load_json_file();
+            print(data)
             task_list = data["tasks"]
             print(task_list)
             return task_list, 200
@@ -28,9 +38,7 @@ class DeleteTaskById(Resource):
     def delete(self, taskId):
         print(f"Deleting task with id: {taskId}")
         try:
-            with open(MOCKUP_DATA_FILE, "r") as file:
-                data: dict = json.load(file)
-
+            data = load_json_file();
             tasks: List = data["tasks"]
             found = False
             for task in tasks:
@@ -38,13 +46,10 @@ class DeleteTaskById(Resource):
                     tasks.remove(task)
                     found = True
                     break
-            
             if not found:
                 raise ValueError(f"Task with id {taskId} does not exist.")
 
-            with open(MOCKUP_DATA_FILE, "w") as file:
-                data = json.dump(data, file, indent=4)
-            
+            data = dump_to_json_file(data)
             return "deleted"
         except ValueError as err:
             return f"{err}", 404
@@ -63,9 +68,7 @@ class UpdateTask(Resource):
             new_task: dict = json.loads(req_body_string)
             print(f"Task to be updated: {new_task}")
 
-            with open(MOCKUP_DATA_FILE, "r") as file:
-                data: dict = json.load(file)
-            
+            data = load_json_file();
             index = 0
             found = False
             tasks: List = data["tasks"]
@@ -77,13 +80,10 @@ class UpdateTask(Resource):
                     found = True
                     break
                 index += 1
-
             if not found:
                 raise ValueError(f"Task with id {new_task['id']} does not exist.")
 
-            with open(MOCKUP_DATA_FILE, "w") as file:
-                data = json.dump(data, file, indent=4)
-
+            data = dump_to_json_file(data)
             tasks_list = GetTaskByAll().get()[0]
             return tasks_list[index], 200
         except ValueError as err:
@@ -98,9 +98,7 @@ class AddTask(Resource):
             req_body_str = request.data.decode()
             new_task: dict = json.loads(req_body_str)
 
-            with open(MOCKUP_DATA_FILE, "r") as file:
-                data: dict = json.load(file)
-
+            data = load_json_file();
             tasks: List = data["tasks"]
             ids = []
             for task in tasks:
@@ -111,9 +109,7 @@ class AddTask(Resource):
             tasks.append(new_task)
             data["tasks"] = tasks
 
-            with open(MOCKUP_DATA_FILE, "w") as file:
-                data = json.dump(data, file, indent=4)
-
+            data = dump_to_json_file(data)
             return new_task, 200
         except ValueError as err:
             return f"{err}", 404
