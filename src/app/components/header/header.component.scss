@@ -1,0 +1,10 @@
+header {
+  // We want a button on the side
+  display: flex;
+
+  // To push the button over to the right
+  justify-content: space-between;
+
+  align-items: center;
+  margin-bottom: 20px;
+}
