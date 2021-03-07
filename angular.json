@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-crash": {
+    "task-tracker": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-crash",
+            "outputPath": "dist/task-tracker",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-crash:build"
+            "browserTarget": "task-tracker:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-crash:build:production"
+              "browserTarget": "task-tracker:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-crash:build"
+            "browserTarget": "task-tracker:build"
           }
         },
         "test": {
@@ -114,15 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-crash:serve"
+            "devServerTarget": "task-tracker:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-crash:serve:production"
+              "devServerTarget": "task-tracker:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "angular-crash"
+  "defaultProject": "task-tracker"
 }

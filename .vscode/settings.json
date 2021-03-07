@@ -1,9 +1,0 @@
-// .vscode/settings.json in workspace
-
-{
-  "files.associations": {
-    "*.component.html": "html"
-  },
-  "editor.insertSpaces": true,
-  "editor.tabSize": 2
-}
