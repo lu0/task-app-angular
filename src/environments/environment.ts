@@ -2,8 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+export function apiTask(endpoint: string) {
+    return this._urlTask + endpoint;
+}
+
 export const environment = {
-  production: false
+  production: false,
+  _urlTask: "http://localhost:5554/task-service/api/v1",
+  apiTask
 };
 
 /*

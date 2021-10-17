@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Task } from 'Task';
+import { environment as env } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,26 +15,24 @@ const httpOptions = {
 })
 export class TaskService {
 
-  private apiUrl = "http://localhost:5554/task-service/api/v1"
-
   constructor(
     private http: HttpClient
   ) { }
 
   getTaskByAll(): Observable<Task[]> {
-    // The HttpClient returns and observable
-    return this.http.get<Task[]>(this.apiUrl + "/mockup/getTaskByAll")
+    // The HttpClient returns an observable
+    return this.http.get<Task[]>(env.apiTask("/mockup/getTaskByAll"))
   }
 
   deleteTaskById(taskId: number): Observable<Task[]> {
-    return this.http.delete<null>(this.apiUrl + "/mockup/deleteTaskById/" + taskId);
+    return this.http.delete<null>(env.apiTask("/mockup/deleteTaskById/" + taskId));
   }
 
   updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(this.apiUrl + "/mockup/updateTask", task, httpOptions)
+    return this.http.put<Task>(env.apiTask("/mockup/updateTask"), task, httpOptions);
   }
 
   addTask(task: Task): Observable<Task> {
-    return this.http.post<Task>(this.apiUrl + "/mockup/addTask", task, httpOptions)
+    return this.http.post<Task>(env.apiTask("/mockup/addTask"), task, httpOptions);
   }
 }
